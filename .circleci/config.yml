@@ -19,6 +19,6 @@ jobs:
       - run: kaggle competitions download -c titanic
       - run: unzip titanic.zip -d ./input
       - run: jupyter nbconvert --ExecutePreprocessor.timeout=600 --execute ./titanic.ipynb
-      - run: kaggle competitions submit -f ./result.csv -m "Auto submission from Github repository"
+      - run: kaggle competitions submit -f ./result.csv -m "Auto submission from Github repository" titanic
       - store_artifacts:
           path: ./result.csv

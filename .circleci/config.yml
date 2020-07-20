@@ -1,0 +1,24 @@
+version: 2.1
+
+workflows:
+  build:
+    jobs:
+      - build:
+          context: kaggle-api
+
+jobs:
+  build:
+    working_directory: ~/ccibuild
+    docker:
+      - image: circleci/python:3.6.4
+    steps:
+      - checkout
+      - run: sudo pip install -r requirements.txt
+      - run: sudo python3 -m pip install ipykernel
+      - run: sudo python3 -m ipykernel install --user
+      - run: kaggle competitions download -c titanic
+      - run: unzip titanic.zip -d ./input
+      - run: jupyter nbconvert --ExecutePreprocessor.timeout=600 --execute ./titanic.ipynb
+      - run: kaggle competitions submit -f ./result.csv -m "Auto submission from Github repository" titanic
+      - store_artifacts:
+          path: ./result.csv

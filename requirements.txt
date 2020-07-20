@@ -1,3 +1,5 @@
+jupyter_client
+nbconvert
 numpy
 pandas
 seaborn

@@ -18,7 +18,7 @@ jobs:
       - run: sudo python3 -m ipykernel install --user
       - run: kaggle competitions download -c titanic
       - run: unzip titanic.zip -d ./input
-      - run: jupyter nbconvert --execute ./titanic.ipynb
+      - run: jupyter nbconvert --ExecutePreprocessor.timeout=600 --execute ./titanic.ipynb
       - run: kaggle competitions submit -f ./result.csv -m "Auto submission from Github repository"
       - store_artifacts:
           path: ./result.csv
